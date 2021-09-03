@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const SpotifyPlaylists = ({ playlists }) => {
   const [activePlaylist, setActivePlaylist] = useState(null);
 
-  console.log(playlists);
+//   console.log(playlists);
   return (
     <ul className="spotify-playlists">
       {playlists.map((playlist) => (
