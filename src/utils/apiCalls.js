@@ -12,3 +12,16 @@ export const SpotifyAPI = () => {
     baseURL: "https://api.spotify.com/v1/",
   });
 };
+
+export const YoutubeApi = () => {
+  const token = localStorage.getItem("youtubeToken");
+
+  return axios.create({
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    baseURL: "https://www.googleapis.com/youtube/v3/",
+  });
+};

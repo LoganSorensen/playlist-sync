@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { SpotifyAPI } from "../utils/apiCalls";
+import { SpotifyAPI, YoutubeApi } from "../utils/apiCalls";
 import SpotifyPlaylists from "./SpotifyPlaylists";
 
 const Sync = ({ userId }) => {
@@ -9,7 +9,6 @@ const Sync = ({ userId }) => {
   useEffect(() => {
     let accessToken = window.location.hash.substring(1);
     accessToken = accessToken.split("&")[0].split("=")[1];
-    console.log("youtube token", accessToken);
     accessToken && localStorage.setItem("youtubeToken", accessToken);
   }, []);
 
@@ -17,17 +16,28 @@ const Sync = ({ userId }) => {
     SpotifyAPI()
       .get(`/users/${userId}/playlists`)
       .then((res) => {
-        // console.log(res.data);
         setPlaylists(res.data.items);
       })
       .catch((err) => console.log(err));
   }, [userId]);
 
-  //   console.log(userId);
+  const createPlaylist = () => {
+    const data = {
+      "snippet": {
+        "title": "Test Playlist from Sync"
+      },
+    };
+
+    YoutubeApi()
+      .post("/playlists?part=snippet", data)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="sync">
       <SpotifyPlaylists playlists={playlists} />
+      <button onClick={createPlaylist}>create youtube playlist</button>
     </div>
   );
 };

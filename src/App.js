@@ -16,7 +16,7 @@ function App() {
     SpotifyAPI()
       .get("me")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setUserId(res.data.id);
       })
       .catch((err) => console.log(err));
